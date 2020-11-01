@@ -50,3 +50,50 @@ info:
   company.name: www.hrf.com
   build.artifactId: $project.artifactId$
   build.version: $project.version$
+  ---
+server:
+  port: 8001 #注册中心占用7001端口，冒号后面必须要有空格
+spring:
+  profiles: test    #开发环境
+  application:
+    name: microservicecloud-config-dept-client
+  datasource:
+#  当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/cloudDB02
+    username: root
+    password: 123
+    dbcp2:
+#    数据库连接池最小维持连接数
+      min-idle: 5
+#      初始化连接数
+      initial-size: 5
+#      最大连接数
+      max-idle: 5
+#      等待连接获取的最大超时时间
+      max-wait-millis: 200
+mybatis:
+#mybatis配置文件所在路径
+#  config-location: classpath:mybatis/mtbatis.cfg.xml
+  #所有Entity别名类所在包
+  type-aliases-package: com.hrf.springcloud.entities
+#  mapper映射文件
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka 单机版
+#      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+#  自定义服务名称信息
+    instance-id: dept-8001.com
+#    访问路径可以显示IP地址
+    prefer-ip-address: true
+
+info:
+  app.name: hrf-microservicecloud
+  company.name: www.hrf.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
